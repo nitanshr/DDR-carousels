@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fort City · DDR Carousel — Canva import</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --char:#161210; --char2:#221a14; --char3:#2c211a;
+    --amber:#e0912f; --amber-hi:#f2b347; --amber-deep:#b26a1c;
+    --foam:#f4ebdd; --foam-dim:#c9bda9; --line:rgba(224,145,47,.32);
+    --pad:78px;
+    --disp:'Playfair Display',serif; --body:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0d0b0a;display:flex;flex-direction:column;align-items:center;gap:2px;-webkit-font-smoothing:antialiased}
+
+  .page{
+    position:relative;width:1080px;height:1350px;overflow:hidden;
+    background:var(--char);color:var(--foam);font-family:var(--body);
+  }
+  /* full-bleed photo zone (replace with your shot in Canva) */
+  .photo{position:absolute;inset:0;z-index:0}
+  .scrim{position:absolute;inset:0;z-index:1;pointer-events:none}
+  .grain{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.42;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+  .pcap{position:absolute;z-index:4;right:var(--pad);top:26px;font-family:var(--mono);font-size:13px;
+    letter-spacing:.12em;text-transform:uppercase;color:rgba(244,235,221,.5)}
+
+  .inner{position:absolute;inset:0;z-index:3;padding:var(--pad);display:flex;flex-direction:column}
+  .brand{display:flex;align-items:center;gap:13px}
+  .bug{width:34px;height:34px;flex:none}
+  .eyebrow{font-family:var(--mono);font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:500}
+  .men{display:block;margin-top:22px;width:132px;height:12px}
+
+  .hook{font-family:var(--disp);font-weight:700;letter-spacing:-.01em;line-height:1.04}
+  .kick{font-family:var(--disp);font-style:italic;color:var(--amber-hi)}
+  .body{font-size:29px;line-height:1.5;color:var(--foam);max-width:840px}
+  .lede{font-family:var(--disp);font-style:italic;color:var(--amber-hi);line-height:1.28}
+
+  /* bottom progress bar (the retained fill-rate signal, no numbers) */
+  .prog{position:absolute;left:0;bottom:0;width:100%;height:8px;background:rgba(244,235,221,.12);z-index:4}
+  .prog > i{display:block;height:100%;background:linear-gradient(90deg,var(--amber-deep),var(--amber-hi))}
+
+  .verify{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;
+    letter-spacing:.05em;color:var(--amber);border:1px dashed var(--line);border-radius:40px;padding:9px 16px}
+  .verify .d{width:7px;height:7px;border-radius:50%;background:var(--amber);flex:none}
+
+  .chips{display:flex;flex-wrap:wrap;gap:14px}
+  .chip{font-family:var(--mono);font-size:21px;color:var(--foam);background:rgba(44,33,26,.8);
+    border:1px solid var(--line);border-radius:8px;padding:14px 22px}
+  .chip .n{color:var(--amber-hi);margin-right:10px}
+
+  .ftags{display:flex;flex-wrap:wrap;gap:12px}
+  .ftag{font-family:var(--mono);font-size:20px;color:var(--amber);border-bottom:1px solid var(--line);padding:2px 2px 8px}
+
+  .panel{background:rgba(19,15,12,.72);border:1px solid var(--line);border-radius:16px;padding:34px 36px}
+
+  .grid4{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .cell{background:rgba(20,15,12,.86);padding:32px 30px;display:flex;flex-direction:column;gap:13px;min-height:206px}
+  .cell .ico{width:38px;height:38px;color:var(--amber)}
+  .cell .clabel{font-family:var(--mono);font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-hi)}
+  .cell .cbody{font-size:22px;line-height:1.4;color:var(--foam-dim)}
+
+  .blist{display:flex;flex-direction:column}
+  .brow{display:flex;align-items:baseline;gap:22px;padding:24px 0;border-bottom:1px solid rgba(244,235,221,.12)}
+  .brow:first-child{border-top:1px solid rgba(244,235,221,.12)}
+  .brow .bname{font-family:var(--disp);font-weight:600;font-size:38px;white-space:nowrap}
+  .brow .breason{font-size:23px;color:var(--foam-dim);line-height:1.35}
+  .brow .idx{font-family:var(--mono);font-size:15px;color:var(--amber);flex:none;width:32px}
+
+  .qmark{font-family:var(--disp);font-size:180px;line-height:.6;color:var(--amber);opacity:.35;height:100px}
+  .pull{font-family:var(--disp);font-style:italic;font-weight:500;font-size:62px;line-height:1.18}
+  .blank{display:inline-block;min-width:340px;border-bottom:3px solid var(--amber);height:.9em;margin:0 6px}
+  .attrib{font-family:var(--mono);font-size:22px;color:var(--amber-hi);letter-spacing:.04em;margin-top:30px}
+  .phnote{font-family:var(--mono);font-size:14px;letter-spacing:.05em;color:var(--foam-dim);margin-top:18px;display:inline-flex;gap:9px;align-items:center}
+  .phnote .d{width:7px;height:7px;border-radius:50%;background:var(--amber);flex:none}
+
+  .cta{background:var(--foam);color:var(--char);border-radius:16px;padding:36px 40px}
+  .cta .big{font-family:var(--disp);font-weight:700;font-size:34px;line-height:1.15;color:var(--char);margin-bottom:12px}
+  .cta .sub{font-size:23px;line-height:1.45;color:#4a3d33}
+  .handle{font-family:var(--mono);font-size:22px;color:var(--amber);letter-spacing:.04em}
+
+  .swipe{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:16px;letter-spacing:.12em;color:var(--amber);text-transform:uppercase}
+  .swipe svg{width:44px;height:14px}
+  .foot{margin-top:auto}
+</style>
+</head>
+<body>
+
+<!-- ===== PAGE 1 · COVER ===== -->
+<div class="page" data-document-role="page" data-label="Cover">
+  <div class="photo" style="background:radial-gradient(120% 90% at 50% 118%, rgba(242,179,71,.55), rgba(224,145,47,.18) 34%, transparent 62%),radial-gradient(80% 60% at 78% 8%, rgba(178,106,28,.35), transparent 60%),linear-gradient(180deg,#120e0b,#1c130c 55%,#3a2410)"></div>
+  <div class="grain"></div>
+  <span class="pcap">Photo · tap wall / flight</span>
+  <div class="inner">
+    <div class="brand">
+      <svg class="bug" viewBox="0 0 40 40" fill="none"><path d="M4 4h15v15c-8.28 0-15-6.72-15-15Z" fill="#e0912f"/><path d="M36 36H21V21c8.28 0 15 6.72 15 15Z" fill="#e0912f"/><path d="M36 4v15c-8.28 0-15-6.72-15-15h15Z" fill="#b26a1c"/><path d="M4 36V21c8.28 0 15 6.72 15 15H4Z" fill="#b26a1c"/></svg>
+      <span class="eyebrow">Field Notes · Fort City · New Delhi</span>
+    </div>
+    <div class="foot">
+      <div class="swipe" style="margin-bottom:24px">Int'l Beer Day · Vol. 01</div>
+      <h1 class="hook" style="font-size:88px;max-width:940px">Fort City isn't just brewing beer.<br>It's building <span class="kick">curiosity</span>.</h1>
+      <svg class="men" viewBox="0 0 132 12" fill="none"><path d="M1 8C30 1 102 1 131 8" stroke="#e0912f" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <p class="body" style="margin-top:24px;max-width:760px">Collaborations, unusual ingredients, and a refusal to let beer become predictable.</p>
+      <div class="swipe" style="margin-top:40px">Swipe
+        <svg viewBox="0 0 44 14" fill="none"><path d="M1 7h40M35 2l6 5-6 5" stroke="#e0912f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  </div>
+  <div class="prog"><i style="width:12.5%"></i></div>
+</div>
+
+<!-- ===== PAGE 2 · THE QUESTION ===== -->
+<div class="page" data-document-role="page" data-label="The question">
+  <div class="photo" style="background:radial-gradient(90% 70% at 88% 108%, rgba(224,145,47,.30), transparent 60%),linear-gradient(180deg,#161210,#1b140e)"></div>
+  <div class="scrim" style="background:linear-gradient(180deg,rgba(13,10,8,.2),transparent 40%)"></div>
+  <div class="grain"></div>
+  <span class="pcap">Photo · house pour beside a limited release</span>
+  <div class="inner">
+    <div class="brand"><svg class="bug" viewBox="0 0 40 40" fill="none"><path d="M4 4h15v15c-8.28 0-15-6.72-15-15Z" fill="#e0912f"/><path d="M36 36H21V21c8.28 0 15 6.72 15 15Z" fill="#e0912f"/><path d="M36 4v15c-8.28 0-15-6.72-15-15h15Z" fill="#b26a1c"/><path d="M4 36V21c8.28 0 15 6.72 15 15H4Z" fill="#b26a1c"/></svg><span class="eyebrow">The question</span></div>
+    <div style="margin-top:120px">
+      <h2 class="hook" style="font-size:80px;max-width:900px">Fort City could have played it <span class="kick">safe</span>.</h2>
+      <svg class="men" viewBox="0 0 132 12" fill="none"><path d="M1 8C30 1 102 1 131 8" stroke="#e0912f" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <p class="body" style="margin-top:36px">It already has house beers people come back for. But visit again and there is usually a new collaboration, ingredient or technique on the board.</p>
+    </div>
+    <div class="foot" style="border-left:3px solid var(--amber);padding-left:28px">
+      <p class="lede" style="font-size:40px">So what keeps the team experimenting?</p>
+    </div>
+  </div>
+  <div class="prog"><i style="width:25%"></i></div>
+</div>
+
+<!-- ===== PAGE 3 · THE FOUNDATION ===== -->
+<div class="page" data-document-role="page" data-label="The foundation">
+  <div class="photo" style="background:radial-gradient(80% 60% at 12% -6%, rgba(178,106,28,.34), transparent 58%),linear-gradient(180deg,#171210,#1a130d)"></div>
+  <div class="grain"></div>
+  <span class="pcap">Photo · two or three Fort City staples</span>
+  <div class="inner">
+    <div class="brand"><svg class="bug" viewBox="0 0 40 40" fill="none"><path d="M4 4h15v15c-8.28 0-15-6.72-15-15Z" fill="#e0912f"/><path d="M36 36H21V21c8.28 0 15 6.72 15 15Z" fill="#e0912f"/><path d="M36 4v15c-8.28 0-15-6.72-15-15h15Z" fill="#b26a1c"/><path d="M4 36V21c8.28 0 15 6.72 15 15H4Z" fill="#b26a1c"/></svg><span class="eyebrow">The foundation</span></div>
+    <div style="margin-top:96px">
+      <h2 class="hook" style="font-size:78px;max-width:880px">The regulars build the <span class="kick">trust</span>.</h2>
+      <svg class="men" viewBox="0 0 132 12" fill="none"><path d="M1 8C30 1 102 1 131 8" stroke="#e0912f" stroke-width="2.5" stroke-linecap="round"/></svg>
+    </div>
+    <div class="chips" style="margin-top:44px">
+      <span class="chip"><span class="n">01</span>Rakshas</span>
+      <span class="chip"><span class="n">02</span>Spongebob</span>
+      <span class="chip"><span class="n">03</span>Orange Popsicle</span>
+    </div>
+    <p class="body" style="margin-top:44px">Familiar beers give you a reference point and a reason to return. That trust is exactly what lets the experiments take you somewhere less expected.</p>
+  </div>
+  <div class="prog"><i style="width:37.5%"></i></div>
+</div>
+
+<!-- ===== PAGE 4 · FOUR DIRECTIONS ===== -->
+<div class="page" data-document-role="page" data-label="Four directions">
+  <div class="photo" style="background:linear-gradient(180deg,#151110,#191309)"></div>
+  <div class="grain"></div>
+  <span class="pcap">Photo · brew floor / ingredients</span>
+  <div class="inner">
+    <div class="brand"><svg class="bug" viewBox="0 0 40 40" fill="none"><path d="M4 4h15v15c-8.28 0-15-6.72-15-15Z" fill="#e0912f"/><path d="M36 36H21V21c8.28 0 15 6.72 15 15Z" fill="#e0912f"/><path d="M36 4v15c-8.28 0-15-6.72-15-15h15Z" fill="#b26a1c"/><path d="M4 36V21c8.28 0 15 6.72 15 15H4Z" fill="#b26a1c"/></svg><span class="eyebrow">Four directions</span></div>
+    <h2 class="hook" style="font-size:54px;max-width:900px;margin-top:32px">Every collaboration unlocks something different.</h2>
+    <div class="grid4" style="margin-top:32px">
+      <div class="cell"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8M12 8c0-3 2-5 5-5 0 3-2 5-5 5ZM12 12c0-3-2-5-5-5 0 3 2 5 5 5ZM12 16c0-3 2-5 5-5 0 3-2 5-5 5ZM12 16c0-3-2-5-5-5 0 3 2 5 5 5Z"/></svg><span class="clabel">New grains</span><span class="cbody">Jowar and other unconventional fermentables.</span></div>
+      <div class="cell"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14M5 20h14M6 4c-1 5-1 11 0 16M18 4c1 5 1 11 0 16M4 12h16"/></svg><span class="clabel">New barrels</span><span class="cbody">Whisky and rum casks lending a second life.</span></div>
+      <div class="cell"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 8a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-8V3M7.5 15h9"/></svg><span class="clabel">New flavours</span><span class="cbody">Coffee, fruit, mushrooms, the kitchen's pantry.</span></div>
+      <div class="cell"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 20c0-3 2-5 5-5s5 2 5 5M14.5 20c0-2.2 1.3-3.8 3.2-3.9"/></svg><span class="clabel">New perspectives</span><span class="cbody">Indian and international brewers, their own methods.</span></div>
+    </div>
+    <div style="margin-top:28px"><span class="verify"><span class="d"></span>Partners &amp; examples to confirm with Fort City</span></div>
+  </div>
+  <div class="prog"><i style="width:50%"></i></div>
+</div>
+
+<!-- ===== PAGE 5 · FOUR BEERS ===== -->
+<div class="page" data-document-role="page" data-label="Four beers">
+  <div class="photo" style="background:radial-gradient(70% 50% at 96% 4%, rgba(224,145,47,.26), transparent 55%),linear-gradient(180deg,#161210,#1b140d)"></div>
+  <div class="grain"></div>
+  <span class="pcap">Photo · four labels / tap cards</span>
+  <div class="inner">
+    <div class="brand"><svg class="bug" viewBox="0 0 40 40" fill="none"><path d="M4 4h15v15c-8.28 0-15-6.72-15-15Z" fill="#e0912f"/><path d="M36 36H21V21c8.28 0 15 6.72 15 15Z" fill="#e0912f"/><path d="M36 4v15c-8.28 0-15-6.72-15-15h15Z" fill="#b26a1c"/><path d="M4 36V21c8.28 0 15 6.72 15 15H4Z" fill="#b26a1c"/></svg><span class="eyebrow">Four reasons</span></div>
+    <h2 class="hook" style="font-size:58px;max-width:840px;margin-top:28px">Four beers. Four reasons to collaborate.</h2>
+    <div class="blist" style="margin-top:26px">
+      <div class="brow"><span class="idx">A1</span><span class="bname">Jowar Lager</span><span class="breason">reaching for an indigenous grain.</span></div>
+      <div class="brow"><span class="idx">A2</span><span class="bname">Dhumri · Mridya</span><span class="breason">what a spirit cask does to beer.</span></div>
+      <div class="brow"><span class="idx">A3</span><span class="bname">One Night Stand</span><span class="breason">borrowed from coffee and cocktail culture.</span></div>
+      <div class="brow"><span class="idx">A4</span><span class="bname">Aloo Chaat Pale Ale</span><span class="breason">a cross-border brewing perspective.</span></div>
+    </div>
+    <p class="lede" style="font-size:36px;margin-top:30px;max-width:820px">The common thread isn't an ingredient. It's curiosity.</p>
+    <div style="margin-top:20px"><span class="verify"><span class="d"></span>Beer selection to confirm with Fort City</span></div>
+  </div>
+  <div class="prog"><i style="width:62.5%"></i></div>
+</div>
+
+<!-- ===== PAGE 6 · FOUNDER QUOTE ===== -->
+<div class="page" data-document-role="page" data-label="Founder quote">
+  <div class="photo" style="background:radial-gradient(100% 80% at 50% 120%, rgba(224,145,47,.28), transparent 60%),linear-gradient(180deg,#130f0c,#22160d)"></div>
+  <div class="scrim" style="background:linear-gradient(180deg,rgba(13,10,8,.35),transparent 45%)"></div>
+  <div class="grain"></div>
+  <span class="pcap">Photo · founder / brewer portrait</span>
+  <div class="inner">
+    <div class="brand"><svg class="bug" viewBox="0 0 40 40" fill="none"><path d="M4 4h15v15c-8.28 0-15-6.72-15-15Z" fill="#e0912f"/><path d="M36 36H21V21c8.28 0 15 6.72 15 15Z" fill="#e0912f"/><path d="M36 4v15c-8.28 0-15-6.72-15-15h15Z" fill="#b26a1c"/><path d="M4 36V21c8.28 0 15 6.72 15 15H4Z" fill="#b26a1c"/></svg><span class="eyebrow">In their words</span></div>
+    <p class="body" style="margin-top:56px;font-size:26px;color:var(--foam-dim)">But where does a new beer actually begin?</p>
+    <div style="margin-top:12px" class="qmark">&ldquo;</div>
+    <p class="pull" style="max-width:900px;margin-top:-26px">For us, a collaboration begins with <span class="blank"></span></p>
+    <p class="attrib">— NAME, ROLE · FORT CITY</p>
+    <span class="phnote"><span class="d"></span>PLACEHOLDER · DROP THE FOUNDER'S REAL ANSWER HERE</span>
+  </div>
+  <div class="prog"><i style="width:75%"></i></div>
+</div>
+
+<!-- ===== PAGE 7 · FOR THE GUEST ===== -->
+<div class="page" data-document-role="page" data-label="For the guest">
+  <div class="photo" style="background:radial-gradient(80% 60% at 8% 100%, rgba(178,106,28,.32), transparent 58%),linear-gradient(180deg,#171210,#1a130d)"></div>
+  <div class="grain"></div>
+  <span class="pcap">Photo · tasting flight / people trying samples</span>
+  <div class="inner">
+    <div class="brand"><svg class="bug" viewBox="0 0 40 40" fill="none"><path d="M4 4h15v15c-8.28 0-15-6.72-15-15Z" fill="#e0912f"/><path d="M36 36H21V21c8.28 0 15 6.72 15 15Z" fill="#e0912f"/><path d="M36 4v15c-8.28 0-15-6.72-15-15h15Z" fill="#b26a1c"/><path d="M4 36V21c8.28 0 15 6.72 15 15H4Z" fill="#b26a1c"/></svg><span class="eyebrow">Why it works for you</span></div>
+    <div style="margin-top:104px">
+      <h2 class="hook" style="font-size:74px;max-width:900px">It makes beer less <span class="kick">intimidating</span>.</h2>
+      <svg class="men" viewBox="0 0 132 12" fill="none"><path d="M1 8C30 1 102 1 131 8" stroke="#e0912f" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <p class="body" style="margin-top:36px">You might not know an IPA from a saison. But you know coffee, mango, kokum, smoke. A familiar flavour becomes a doorway into a much bigger beer vocabulary.</p>
+    </div>
+    <div class="ftags foot"><span class="ftag">coffee</span><span class="ftag">mango</span><span class="ftag">kokum</span><span class="ftag">smoke</span><span class="ftag">wine</span></div>
+  </div>
+  <div class="prog"><i style="width:87.5%"></i></div>
+</div>
+
+<!-- ===== PAGE 8 · CLOSE + CTA ===== -->
+<div class="page" data-document-role="page" data-label="Close and CTA">
+  <div class="photo" style="background:radial-gradient(120% 80% at 50% -10%, rgba(242,179,71,.42), rgba(224,145,47,.14) 38%, transparent 64%),linear-gradient(180deg,#3a2410,#1c130c 46%,#120e0b)"></div>
+  <div class="grain"></div>
+  <span class="pcap">Photo · hero pour</span>
+  <div class="inner">
+    <div class="brand"><svg class="bug" viewBox="0 0 40 40" fill="none"><path d="M4 4h15v15c-8.28 0-15-6.72-15-15Z" fill="#e0912f"/><path d="M36 36H21V21c8.28 0 15 6.72 15 15Z" fill="#e0912f"/><path d="M36 4v15c-8.28 0-15-6.72-15-15h15Z" fill="#b26a1c"/><path d="M4 36V21c8.28 0 15 6.72 15 15H4Z" fill="#b26a1c"/></svg><span class="eyebrow">The takeaway</span></div>
+    <div style="margin-top:80px">
+      <h2 class="hook" style="font-size:68px;max-width:900px">Maybe the point was never just the <span class="kick">beer</span>.</h2>
+      <p class="body" style="margin-top:30px;max-width:820px">Fort City isn't only giving Delhi more to drink. It's asking what else beer can be. 🍺</p>
+    </div>
+    <div class="foot">
+      <div class="cta">
+        <p class="big">Which experiment has stayed with you?</p>
+        <p class="sub">Save this for your next Fort City run, and send it to the friend who swears they "don't like beer."</p>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:26px">
+        <span class="handle">@DineDrinkRepeat</span>
+        <span class="eyebrow">Dine · Drink · Repeat</span>
+      </div>
+    </div>
+  </div>
+  <div class="prog"><i style="width:100%"></i></div>
+</div>
+
+</body>
+</html>
